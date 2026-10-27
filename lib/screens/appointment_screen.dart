@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../services/api_service.dart';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({super.key});
@@ -10,11 +11,36 @@ class AppointmentScreen extends StatefulWidget {
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
   String? selectedDoctor;
-  DateTime? selectedDate;
   String? selectedTime;
+  bool isLoading = false;
 
   final doctors = ['Dr. Aliyeva', 'Dr. Karimov', 'Dr. Rahimova'];
   final times = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+
+  Future<void> _submitAppointment() async {
+    if (selectedDoctor == null || selectedTime == null) return;
+
+    setState(() => isLoading = true);
+    try {
+      await ApiService.createAppointment(
+        doctor: selectedDoctor!,
+        time: selectedTime!,
+      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Navbat muvaffaqiyatli yuborildi!')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Xatolik: $e')),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +72,12 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: selectedDoctor != null && selectedTime != null
-                    ? () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Navbat so\'rovi yuborildi!')),
-                        );
-                      }
+                onPressed: (selectedDoctor != null && selectedTime != null && !isLoading)
+                    ? _submitAppointment
                     : null,
-                child: const Text('Navbatni tasdiqlash'),
+                child: isLoading
+                    ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                    : const Text('Navbatni tasdiqlash'),
               ),
             ).animate().fadeIn(delay: 300.ms),
           ],
