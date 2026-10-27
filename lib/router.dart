@@ -6,6 +6,7 @@ import 'screens/appointment_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/my_appointments_screen.dart';
 
 final router = GoRouter(
   initialLocation: '/login',
@@ -33,6 +34,10 @@ final router = GoRouter(
     GoRoute(
       path: '/profile',
       builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/my-appointments',
+      builder: (context, state) => const MyAppointmentsScreen(),
     ),
   ],
 );
