@@ -15,18 +15,36 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Gavxar Clinic',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1A1A1A),
-                ),
-              ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2),
-              const SizedBox(height: 8),
-              Text(
-                'Sog\'ligingiz bizning g\'amxo\'rligimizda',
-                style: TextStyle(color: Colors.grey[600], fontSize: 16),
-              ).animate().fadeIn(delay: 100.ms),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gavxar Clinic',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF1A1A1A),
+                        ),
+                      ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Sog\'ligingiz bizning g\'amxo\'rligimizda',
+                        style: TextStyle(color: Colors.grey[600], fontSize: 15),
+                      ).animate().fadeIn(delay: 100.ms),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () => context.push('/profile'),
+                    child: const CircleAvatar(
+                      radius: 24,
+                      backgroundColor: Color(0xFF4A90E2),
+                      child: Icon(Icons.person, color: Colors.white),
+                    ),
+                  ).animate().fadeIn(delay: 150.ms),
+                ],
+              ),
               const SizedBox(height: 32),
               _buildQuickActions(context),
               const SizedBox(height: 32),
