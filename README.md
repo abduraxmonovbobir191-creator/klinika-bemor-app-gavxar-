@@ -1,19 +1,32 @@
-# Gavxar Clinic - Bemor (Patient) App
+# Gavxar Clinic - Bemor Ilovasi
 
-Mobil ilova for patients / mijozlar.
+Production-oriented Flutter app for patients of Gavxar Clinic.
 
 ## Features
-- Onlayn navbat olish
-- Shifokorlar ro'yxati
-- Mening navbatlarim
-- Profil va tibbiy tarix
-- Xabarlar
+- Login / Register
+- Home with quick actions & profile
+- Doctors list (from API)
+- Book appointment (sends to backend)
+- My appointments
+- Profile
+- Smooth iOS-like UI & animations
 
-## Tech
-- Flutter (iOS-like smooth UI & animations)
-- Clean Architecture + BLoC or Riverpod
+## Run locally
+```bash
+flutter pub get
+flutter run
+```
 
-## Status
-In development.
+## GitHub Actions Build
+Workflow is configured. Push to `main` or manually trigger to build release APK.
+
+**For signed production builds:**
+1. Create Android keystore
+2. Add these secrets in GitHub repo Settings → Secrets:
+   - KEYSTORE_BASE64
+   - KEYSTORE_PASSWORD
+   - KEY_ALIAS
+   - KEY_PASSWORD
+3. Update the workflow to use them (I can help with that).
 
 Clinic: Gavxar Clinic
